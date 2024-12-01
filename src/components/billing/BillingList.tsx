@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { DollarSign, FileText, AlertCircle } from 'lucide-react';
+import { DollarSign } from 'lucide-react';
 import { useBillingStore } from '../../store/billingStore';
 import { BillingModal } from './BillingModal';
 import { format } from 'date-fns';
 import { cn } from '../../lib/utils';
 import type { BillingItem, BillingStatus } from '../../types/billing';
-
+import { BillingAnalytics } from './BillingAnalytics'; // Named import
 export default function BillingList() {
   const { items, updateStatus, addPayment } = useBillingStore();
   const [selectedItem, setSelectedItem] = useState<BillingItem | null>(null);
@@ -33,12 +33,13 @@ export default function BillingList() {
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
         <h3 className="text-lg font-medium text-gray-900">Billing Items</h3>
       </div>
+      
+      {/* Render the BillingAnalytics component */}
+      <BillingAnalytics />
+
       <ul className="divide-y divide-gray-200">
         {items.map((item) => (
-          <li
-            key={item.id}
-            className="px-4 py-4 sm:px-6 hover:bg-gray-50"
-          >
+          <li key={item.id} className="px-4 py-4 sm:px-6 hover:bg-gray-50">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <DollarSign className="h-6 w-6 text-gray-400 mr-3" />
