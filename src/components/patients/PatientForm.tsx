@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { usePatientStore } from '../../store/patientStore';
 import { useTimelineStore } from '../../store/timelineStore';
 import {
@@ -15,7 +15,7 @@ export function PatientForm() {
   const { generateTimeline } = useTimelineStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<Partial<Patient>>({
+  const [patientData, setPatientData] = useState<Partial<Patient>>({
     gender: 'other',
     caseStatus: 'pending',
     contactInfo: {
@@ -40,56 +40,61 @@ export function PatientForm() {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
-
+    
     try {
-      const patientId = await addPatient(formData as Patient);
+      setError(null);
+      setIsSubmitting(true);
+
+      const patientId = await addPatient(patientData as Patient);
       await generateTimeline(patientId, 'default');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create patient record');
+      setError((err instanceof Error ? err.message : 'Failed to create patient record') as string); 
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [addPatient, generateTimeline, patientData]);
 
-  const handleClear = () => {
-    setFormData({
-      gender: 'other',
-      caseStatus: 'pending',
+  const handleClear = useCallback(() => {
+    setPatientData({
+      gender: 'other', 
+      caseStatus: 'pending', 
       contactInfo: {
-        email: '',
-        phone: '',
+        email: '', 
+        phone: '', 
         address: {
-          street: '',
-          city: '',
-          state: '',
-          zipCode: '',
+          street: '', 
+          city: '', 
+          state: '', 
+          zipCode: '', 
         },
       },
       insurance: {
-        provider: '',
-        policyNumber: '',
-        groupNumber: '',
+        provider: '', 
+        policyNumber: '', 
+        groupNumber: '', 
       },
       emergencyContact: {
-        name: '',
-        relationship: '',
-        phone: '',
+        name: '', 
+        relationship: '', 
+        phone: '', 
       },
-    });
+    });    
     setError(null);
-  };
+  }, []);
+
+  const handleChange = useCallback((updatedData: Partial<Patient>) => {
+    setPatientData({ ...patientData, ...updatedData });
+  }, [patientData]);
 
   return (
     <div className="max-w-4xl mx-auto">
       <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow rounded-lg p-6">
-        <BasicInfoSection data={formData} onChange={setFormData} />
-        <ContactInfoSection data={formData} onChange={setFormData} />
-        <InsuranceSection data={formData} onChange={setFormData} />
-        <EmergencyContactSection data={formData} onChange={setFormData} />
+        <BasicInfoSection data={patientData} onChange={handleChange} />
+        <ContactInfoSection data={patientData} onChange={handleChange} />
+        <InsuranceSection data={patientData} onChange={handleChange} />
+        <EmergencyContactSection data={patientData} onChange={handleChange} />
         <FormActions 
           onClear={handleClear}
           isSubmitting={isSubmitting}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, FileText, Archive } from 'lucide-react';
 import { useFormStore } from '../store/formStore';
-import { FormList } from '../components/forms/FormList';
+import { FormList } from '../components/forms/FormsReportsTemplates';
 
 export default function Forms() {
   return (
