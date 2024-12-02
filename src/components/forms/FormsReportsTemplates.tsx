@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { sp } from '@pnp/sp';
-import Template from './Template';
-import ReportGenerator from '../ReportGenerator'; // Import ReportGenerator component
+import React, { useState, useEffect } from "react";
+import { spfi, SPFx } from "@pnp/sp"; // Import spfi and SPFx
+
+// Import other components
+import Template from "./Template";
+import ReportGenerator from "../reports/ReportGenerator"; // Import ReportGenerator component
 
 // Interface for template metadata
 interface ITemplate {
@@ -14,15 +16,18 @@ interface ITemplate {
 const FormsReportsTemplates: React.FC = () => {
   const [templates, setTemplates] = useState<ITemplate[]>([]);
 
+  // Create an instance of spfi to use for SharePoint API calls
+  const sp = spfi({ context: {} }).using(SPFx());
+
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
         const templates: ITemplate[] = await sp.web.lists
-          .getByTitle('Templates') // SharePoint list name for templates
+          .getByTitle("Templates") // SharePoint list name for templates
           .items.get();
         setTemplates(templates);
       } catch (error) {
-        console.error('Error fetching templates:', error);
+        console.error("Error fetching templates:", error);
         // Handle error, e.g., display an error message to the user
       }
     };
@@ -35,8 +40,13 @@ const FormsReportsTemplates: React.FC = () => {
     ReportGenerator.triggerPowerAutomateFlow(reportData);
   };
 
-  const handleGenerateReport = (templateId: number, reportData: any) => { 
-    console.log('Generating report for template:', templateId, 'with data:', reportData);
+  const handleGenerateReport = (templateId: number, reportData: any) => {
+    console.log(
+      "Generating report for template:",
+      templateId,
+      "with data:",
+      reportData,
+    );
     // Add your report generation logic here
   };
 
@@ -48,7 +58,7 @@ const FormsReportsTemplates: React.FC = () => {
           key={template.Id}
           template={template}
           onGenerateReport={handleGenerateReport}
-          triggerPowerAutomateFlow={triggerPowerAutomateFlow} 
+          triggerPowerAutomateFlow={triggerPowerAutomateFlow}
         />
       ))}
     </div>

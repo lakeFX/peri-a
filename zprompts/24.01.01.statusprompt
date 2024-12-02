@@ -1,0 +1,28 @@
+# Project: PERI
+# Current Status: Development of Integration with SharePoint and Power Automate
+
+## Overview
+- We are integrating our application with SharePoint to manage document storage and retrieval.
+- We are also setting up Power Automate flows to automate report generation processes.
+
+## Progress Summary
+1. **SharePoint Setup**:
+   - Discussed the necessity of setting up a folder structure in SharePoint to organize documents.
+   - Identified main folders to create: `Report Templates`, `Reports`, and `Patients`.
+   - Provided an option to create these folders manually or programmatically using code.
+
+2. **Power Automate Integration**:
+   - Highlighted the importance of configuring Power Automate flows at the start of the development process to facilitate functionality testing and error handling.
+
+3. **Current Challenges**:
+   - Encountered an issue with initializing the SharePoint context using `spfi()`, requiring clarification on the correct setup.
+   - Discussed automating folder creation in SharePoint with code to avoid manual setup in the future.
+
+## Next Steps
+- Confirm folder creation in SharePoint and implement automation if necessary.
+- Review and address the SharePoint context initialization error.
+- Continue with the integration of Power Automate flows.
+
+## Additional Notes
+- Consider re-evaluating any existing code snippets related to SharePoint and Power Automate for further optimization.
+- Keep track of other features and functions that may require similar document organization in SharePoint.

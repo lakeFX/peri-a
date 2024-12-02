@@ -1,0 +1,52 @@
+# Project: PERI
+# Needs Assessment for SharePoint, Power Automate, and OpenAI Integration
+
+## Overview
+To enhance the functionality of the PERI application, we need to finalize our integrations and ensure the document management and automation processes are well-structured and efficient.
+
+## SharePoint Needs
+1. **Folder Structure**: 
+   - Implement a well-organized folder structure that facilitates easy access to templates, reports, and patient documents.
+   - Proposed Folder Structure:
+     - `PERI Documents`
+       - `Report Templates`
+         - Subfolders categorized by template type (e.g., `Medical`, `Financial`, etc.).
+       - `Reports`
+         - Subfolders for each report type or date (e.g., `2023`, `Monthly Reports`, etc.).
+       - `Patients`
+         - Subfolders for each patient (e.g., `Patients/{patientId}/Documents`) to store individual patient records.
+       - `Archives` (optional)
+         - For storing old or outdated documents and reports.
+
+2. **List Configuration**:
+   - Configure SharePoint lists to store metadata for templates and report generation (e.g., template details, patient information).
+
+## Power Automate Needs
+1. **Flow Design**:
+   - Create flows to automate:
+     - Report generation based on templates and patient data.
+     - Document conversion processes (e.g., from Word or Excel to PDF).
+     - Notifications or alerts based on report status or document updates.
+  
+2. **Trigger Setup**:
+   - Set up triggers for Power Automate flows:
+     - On document upload to specific folders.
+     - On changes to list items related to reports or templates.
+
+## OpenAI Needs
+1. **Integration Points**:
+   - Define where and how OpenAI will be utilized:
+     - Generating reports using template structures and patient data.
+     - Analyzing uploaded documents to extract necessary information.
+
+2. **Data Management**:
+   - Ensure that the input and output data structures align with what OpenAI expects to format while generating content effectively.
+
+## Action Items
+- Finalize the SharePoint folder structure and create the necessary folders.
+- Design and test Power Automate flows to ensure they work as intended.
+- Set up OpenAI integrations for report generation and document analysis.
+
+## Additional Notes
+- Review security and permissions for SharePoint folders to ensure sensitive patient information is protected.
+- Consider logging and monitoring setups for both Power Automate flows and OpenAI interactions, to facilitate troubleshooting and data accuracy.
