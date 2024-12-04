@@ -66,3 +66,4 @@ const FormsReportsTemplates: React.FC = () => {
 };
 
 export default FormsReportsTemplates;
+

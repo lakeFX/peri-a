@@ -1,0 +1,5 @@
+{
+    "sharePointSiteUrl": "https://your-sharepoint-site.sharepoint.com",
+    "clientId": "your-client-id",
+    "clientSecret": "your-client-secret"
+  }
